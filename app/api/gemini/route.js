@@ -1,9 +1,9 @@
 // app/api/gemini/route.js
 
 const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/interactions";
+  "https://generativelanguage.googleapis.com/v1/interactions";
 
-const MODEL = "gemini-3.6-flash";
+const MODEL = "gemini-3.5-flash-lite";
 
 export async function POST(req) {
   try {

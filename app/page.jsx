@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { storage } from "../lib/storage";
 import {
   LayoutGrid, Plus, ArrowLeft, Send, Loader2, Trash2, Sparkles,
   CheckCircle2, Circle, Code2, Copy, Check, GraduationCap, Clock,
@@ -182,26 +181,179 @@ const RESOURCE_RULES = `Resource rules (must follow exactly):
 /* ---------------------------------------------------------------------- */
 /*  Storage helpers                                                        */
 /* ---------------------------------------------------------------------- */
-async function loadIndex() {
-  try {
-    const r = await storage.get("plan-index", false);
-    return r ? JSON.parse(r.value) : [];
-  } catch (e) {
-    return [];
+/* ---------------------------------------------------------------------- */
+/*  Database helpers - Tushit Supabase via /api/courses                   */
+/* ---------------------------------------------------------------------- */
+
+async function loadCourses() {
+  const response = await fetch("/api/courses", {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error || "Failed to load courses."
+    );
   }
+
+  return data.courses || [];
 }
-async function saveIndex(list) {
-  await storage.set("plan-index", JSON.stringify(list), false);
-}
+
+
 async function savePlanRecord(plan) {
-  await storage.set("plan:" + plan.id, JSON.stringify(plan), false);
+  const metadata = plan.course_metadata || {};
+
+  const payload = {
+    id: plan.id,
+
+    title:
+      metadata.title ||
+      "Untitled Course",
+
+    subject:
+      metadata.subject ||
+      "",
+
+    course_metadata:
+      metadata,
+
+    target_audience:
+      typeof metadata.target_audience === "object"
+        ? JSON.stringify(metadata.target_audience)
+        : metadata.target_audience || "",
+
+    duration_and_frequency:
+      metadata.duration
+        ? `${metadata.duration}${metadata.session_frequency ? ` · ${metadata.session_frequency}` : ""}`
+        : metadata.session_frequency || "",
+
+    learning_goals:
+      Array.isArray(metadata.learning_goals)
+        ? metadata.learning_goals.join(", ")
+        : metadata.learning_goals || "",
+
+    modules:
+      Array.isArray(plan.modules)
+        ? plan.modules
+        : [],
+
+    refine_log:
+      Array.isArray(plan.refineLog)
+        ? plan.refineLog
+        : [],
+
+    status:
+      "draft",
+  };
+
+
+  const response = await fetch("/api/courses", {
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+    body: JSON.stringify(payload),
+  });
+
+
+  const data = await response.json();
+
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error ||
+      "Failed to save course to Supabase."
+    );
+  }
+
+
+  return data.course;
 }
+
+
 async function loadPlanRecord(id) {
-  const r = await storage.get("plan:" + id, false);
-  return r ? JSON.parse(r.value) : null;
+  const response = await fetch(
+    `/api/courses/${id}`,
+    {
+      method: "GET",
+      cache: "no-store",
+    }
+  );
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error ||
+      "Failed to load course."
+    );
+  }
+
+  const course = data.course || data;
+
+  if (!course) {
+    return null;
+  }
+
+  const metadata =
+    course.course_metadata || {};
+
+
+  return {
+    id: course.id,
+
+    course_metadata: metadata,
+
+    modules:
+      Array.isArray(course.modules)
+        ? course.modules
+        : [],
+
+    refineLog:
+      Array.isArray(course.refine_log)
+        ? course.refine_log
+        : [],
+
+    createdAt:
+      course.created_at
+        ? new Date(course.created_at).getTime()
+        : Date.now(),
+
+    updatedAt:
+      course.updated_at
+        ? new Date(course.updated_at).getTime()
+        : Date.now(),
+  };
 }
+
+
 async function deletePlanRecord(id) {
-  await storage.delete("plan:" + id, false);
+  const response = await fetch(
+    `/api/courses/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error ||
+      "Failed to delete course."
+    );
+  }
+
+  return true;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -854,10 +1006,48 @@ export default function App() {
   const [currentPlan, setCurrentPlan] = useState(null);
   const [loadingList, setLoadingList] = useState(true);
 
-  async function refreshIndex() {
-    const idx = await loadIndex();
-    setPlans(idx.sort((a, b) => b.updatedAt - a.updatedAt));
+async function refreshIndex() {
+  try {
+    const courses = await loadCourses();
+
+    const index = courses.map((course) => ({
+      id: course.id,
+
+      title:
+        course.title ||
+        course.course_metadata?.title ||
+        "Untitled Course",
+
+      skillLevel:
+        course.course_metadata
+          ?.target_audience
+          ?.skill_level || "",
+
+      duration:
+        course.course_metadata?.duration || "",
+
+      updatedAt:
+        course.updated_at
+          ? new Date(course.updated_at).getTime()
+          : Date.now(),
+    }));
+
+    setPlans(
+      index.sort(
+        (a, b) => b.updatedAt - a.updatedAt
+      )
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Failed to load courses:",
+      error
+    );
+
+    setPlans([]);
   }
+}
 
   useEffect(() => {
     (async () => { await refreshIndex(); setLoadingList(false); })();
@@ -876,35 +1066,50 @@ export default function App() {
     setPlans(next.sort((a, b) => b.updatedAt - a.updatedAt));
   }
 
-  async function handleGenerated(plan) {
-    try {
-      const record = { ...plan, updatedAt: Date.now() };
+ async function handleGenerated(plan) {
+  try {
+
+    const record = {
+      ...plan,
+      updatedAt: Date.now(),
+    };
+
+    console.log(
+      "Saving generated course to Supabase:",
+      record
+    );
+
+    const savedCourse =
       await savePlanRecord(record);
 
-      const index = await loadIndex();
-      const meta = {
-        id: record.id,
-        title: record.course_metadata?.title || "Untitled Course",
-        skillLevel: record.course_metadata?.target_audience?.skill_level || "",
-        duration: record.course_metadata?.duration || "",
-        updatedAt: record.updatedAt,
-      };
+    console.log(
+      "Course saved successfully:",
+      savedCourse
+    );
 
-      const without = index.filter((p) => p.id !== record.id);
-      await saveIndex([meta, ...without]);
 
-      setCurrentPlan(record);
-      setPlans((cur) => [meta, ...cur.filter((p) => p.id !== record.id)]);
-      setView("plan");
-    } catch (error) {
-      console.error("Failed to save generated plan:", error);
-      alert(
-        `The course was generated, but it could not be saved.\n\n${
-          error instanceof Error ? error.message : "Unknown storage error"
-        }`
-      );
-    }
+    setCurrentPlan(record);
+
+    await refreshIndex();
+
+    setView("plan");
+
+  } catch (error) {
+
+    console.error(
+      "Failed to save generated plan:",
+      error
+    );
+
+    alert(
+      `The course was generated, but it could not be saved.\n\n${
+        error instanceof Error
+          ? error.message
+          : "Unknown database error"
+      }`
+    );
   }
+ }
 
   return (
     <div className="cps-root">
