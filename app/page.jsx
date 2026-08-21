@@ -207,47 +207,48 @@ async function savePlanRecord(plan) {
   const metadata = plan.course_metadata || {};
 
   const payload = {
-    id: plan.id,
+  title:
+    metadata.title ||
+    "Untitled Course",
 
-    title:
-      metadata.title ||
-      "Untitled Course",
+  subject:
+    metadata.subject ||
+    "",
 
-    subject:
-      metadata.subject ||
-      "",
+  course_metadata:
+    metadata,
 
-    course_metadata:
-      metadata,
+  target_audience:
+    typeof metadata.target_audience === "object"
+      ? JSON.stringify(metadata.target_audience)
+      : metadata.target_audience || "",
 
-    target_audience:
-      typeof metadata.target_audience === "object"
-        ? JSON.stringify(metadata.target_audience)
-        : metadata.target_audience || "",
+  duration_and_frequency:
+    metadata.duration
+      ? `${metadata.duration}${
+          metadata.session_frequency
+            ? ` · ${metadata.session_frequency}`
+            : ""
+        }`
+      : metadata.session_frequency || "",
 
-    duration_and_frequency:
-      metadata.duration
-        ? `${metadata.duration}${metadata.session_frequency ? ` · ${metadata.session_frequency}` : ""}`
-        : metadata.session_frequency || "",
+  learning_goals:
+    Array.isArray(metadata.learning_goals)
+      ? metadata.learning_goals.join(", ")
+      : metadata.learning_goals || "",
 
-    learning_goals:
-      Array.isArray(metadata.learning_goals)
-        ? metadata.learning_goals.join(", ")
-        : metadata.learning_goals || "",
+  modules:
+    Array.isArray(plan.modules)
+      ? plan.modules
+      : [],
 
-    modules:
-      Array.isArray(plan.modules)
-        ? plan.modules
-        : [],
+  refine_log:
+    Array.isArray(plan.refineLog)
+      ? plan.refineLog
+      : [],
 
-    refine_log:
-      Array.isArray(plan.refineLog)
-        ? plan.refineLog
-        : [],
-
-    status:
-      "draft",
-  };
+  status: "draft",
+};
 
 
   const response = await fetch("/api/courses", {
