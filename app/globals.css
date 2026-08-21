@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { padding: 0; margin: 0; }
+
+.cps-root { font-family: 'IBM Plex Sans', sans-serif; color: #22262B; }
+.cps-display { font-family: 'Fraunces', serif; }
+.cps-mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em; }
+
+.cps-blueprint {
+  background-color: #16223F;
+  background-image:
+    linear-gradient(rgba(143,193,232,0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143,193,232,0.14) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.cps-graph {
+  background-image:
+    linear-gradient(rgba(74,127,181,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,127,181,0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.cps-sheet {
+  position: relative;
+  background: #F5F3EC;
+  border: 1px solid rgba(22,34,63,0.14);
+  box-shadow: 0 1px 0 rgba(22,34,63,0.06);
+}
+.cps-sheet::after {
+  content: "";
+  position: absolute; top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent #E9E4D8 transparent transparent;
+  opacity: 0.9;
+}
+.cps-stamp {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 2px solid #C97C22;
+  color: #C97C22;
+  transform: rotate(-4deg);
+  border-radius: 3px;
+  padding: 3px 10px;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.cps-dim { border-left: 1px dashed rgba(74,127,181,0.55); }
+.cps-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.cps-scroll::-webkit-scrollbar-thumb { background: rgba(74,127,181,0.35); border-radius: 4px; }
+.cps-scroll::-webkit-scrollbar-track { background: transparent; }
+@keyframes cps-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+.cps-pulse { animation: cps-pulse 1.4s ease-in-out infinite; }
+.cps-fade-in { animation: cps-fadein 0.3s ease both; }
+@keyframes cps-fadein {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+textarea.cps-input, input.cps-input {
+  background: #fff;
+  border: 1px solid rgba(22,34,63,0.18);
+}
+textarea.cps-input:focus, input.cps-input:focus {
+  outline: none;
+  border-color: #4A7FB5;
+  box-shadow: 0 0 0 3px rgba(74,127,181,0.15);
+}
