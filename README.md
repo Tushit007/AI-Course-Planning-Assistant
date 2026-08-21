@@ -1,554 +1,620 @@
-# 🎓 Course Planning Studio
-
-> **Turn an idea into a complete course — one conversation at a time.**
-
-**Course Planning Studio** is an AI-powered course design assistant built for mentors, educators, and instructors. Instead of filling out long forms, educators have a natural conversation with the assistant, which collects the essential course information and transforms it into a structured, ready-to-use course plan.
-**Live** 
-<br>
+# 🎓 AI Course Planning Assistant
 
 <p align="center">
-  <strong>💡 Idea</strong>
-  &nbsp;→&nbsp;
-  <strong>💬 Conversation</strong>
-  &nbsp;→&nbsp;
-  <strong>🧠 AI Planning</strong>
-  &nbsp;→&nbsp;
-  <strong>📚 Complete Course</strong>
+
+  <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" />
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/Google-Gemini-4285F4?style=for-the-badge&logo=google" />
+  <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase" />
+  <img src="https://img.shields.io/badge/Vercel-Deployment-000000?style=for-the-badge&logo=vercel" />
+
+</p>
+
+<p align="center">
+  <strong>Turn an idea into a complete course — through conversation.</strong>
+</p>
+
+<p align="center">
+  An AI-powered course planning assistant designed for mentors, educators, trainers, and curriculum designers.
 </p>
 
 ---
 
-## ✨ Why Course Planning Studio?
+## ✨ What is Course Planning Assistant?
 
-Creating a good course takes more than choosing a topic.
+Planning a course shouldn't feel like filling out a complicated form.
 
-An educator needs to think about:
+**AI Course Planning Assistant** turns course creation into a simple conversation.
 
-- 🎯 Learning objectives
-- 👥 Target learners
-- ⏱️ Course duration
-- 📅 Session frequency
-- 📖 Topics and modules
-- 🧩 Lesson structure
-- 📝 Assessments
-- 🛠️ Learning resources
+Just tell the assistant what you want to teach.
 
-Course Planning Studio simplifies the initial planning process through a **guided AI conversation**.
+It intelligently collects the essential information, understands your requirements, and transforms them into a structured, practical course plan.
 
-Instead of asking educators to complete a complicated form, it asks **one focused question at a time**.
+```text
+💬 Conversation
+      ↓
+🧠 AI Understanding
+      ↓
+📋 Course Requirements
+      ↓
+✨ Course Generation
+      ↓
+💾 Supabase
+      ↓
+📚 Course Dashboard
 
----
+🚀 Why this project?
 
-## 🚀 Features
+Traditional course planning often means:
 
-### 💬 Conversational Course Intake
+Forms → Templates → Spreadsheets → Documents → Revisions
 
-The assistant guides the mentor through a short conversation and collects:
+This project takes a different approach:
 
-| Field | Purpose |
-|---|---|
-| 📌 Subject | What the course is about |
-| 👥 Target Audience | Who will learn it |
-| ⏱️ Duration & Frequency | How long and how often |
-| 🎯 Learning Goals | What learners should achieve |
+Talk → Plan → Generate → Refine
 
-The assistant prioritizes missing information and avoids overwhelming the user with multiple questions at once.
+The goal is to make curriculum design faster, simpler, and more interactive.
 
----
+🧠 AI-Powered Course Intake
+The assistant doesn't throw a huge form at the mentor.
 
-### 🧠 AI-Powered Course Planning
+Instead, it asks one meaningful question at a time.
 
-Once the required information is collected, the mentor can generate a structured course plan.
+Example
+AI:
+Let's sketch out your course.
+What subject or topic are you planning to teach?
 
-The AI is designed to transform a simple idea such as:
+You:
+Java
 
-> **"Data Structures for MCA students"**
+AI:
+Who is the target audience for this course?
 
-into a structured learning experience.
+You:
+College Students
 
----
+AI:
+How long will the course run and how frequently
+will the sessions happen?
 
-### 🔄 Iterative Refinement
+You:
+2 days for 1 week
 
-Course planning doesn't always happen perfectly on the first attempt.
+AI:
+What should students be able to achieve by the
+end of the course?
 
-The assistant supports refinement so mentors can improve their plan through conversation.
+You:
+Learn OOP, collections and exception handling.
+The assistant keeps track of the conversation and builds the course requirements progressively.
+
+🎯 Intelligent Requirement Collection
+The assistant collects four core requirements:
+
+Requirement	Example
+📚 Subject	Java
+👥 Target Audience	College Students
+⏱️ Duration & Frequency	2 days for 1 week
+🎯 Learning Goals	Learn OOP and build a Java project
+Smart validation
+The assistant doesn't blindly accept every response.
 
 For example:
 
-```text
-"Make the course more beginner-friendly."
+Learning Goal:
 
-"Add more practical exercises."
+❌ Expert
+❌ Developer
+❌ Yes
+❌ Okay
 
-"Reduce the number of topics per week."
+✅ Learn Java OOP and exception handling
+✅ Build a small Java application
+✅ Understand collections and file handling
+This prevents incomplete course plans from being generated.
 
-"Add an assessment after every module."
-```
+⚡ From Conversation to Course
+Once all required information is available:
 
----
+              USER
+                │
+                ▼
+        ┌───────────────┐
+        │ AI CONVERSATION│
+        └───────┬───────┘
+                │
+                ▼
+       ┌──────────────────┐
+       │ Requirement       │
+       │ Collection        │
+       └────────┬─────────┘
+                │
+                ▼
+       ┌──────────────────┐
+       │ Gemini AI         │
+       │ Course Generation │
+       └────────┬─────────┘
+                │
+                ▼
+       ┌──────────────────┐
+       │ Structured Course │
+       │ Plan              │
+       └────────┬─────────┘
+                │
+                ▼
+       ┌──────────────────┐
+       │ Supabase          │
+       │ PostgreSQL        │
+       └────────┬─────────┘
+                │
+                ▼
+           DASHBOARD
+📚 What gets generated?
+The AI transforms the requirements into a structured learning experience.
 
-### 💾 Course Plan Management
+Course Overview
+Course title
 
-Course plans can be saved and accessed from the application.
+Subject
 
-The current project uses browser-based storage for saved plans, making it lightweight and simple for demos and development.
+Target audience
 
----
+Duration
 
-### 🎨 Designed for Educators
+Learning goals
 
-The interface focuses on:
+Course Structure
+Modules
 
-- Clean typography
-- Minimal distractions
-- Conversational interaction
-- Structured course information
-- Easy-to-understand progress
-- Mentor-friendly workflow
+Topics
 
----
+Learning outcomes
 
-# 🏗️ Architecture
+Activities
 
-```text
-                       ┌──────────────────────┐
-                       │        Mentor        │
-                       └──────────┬───────────┘
-                                  │
-                                  ▼
-                       ┌──────────────────────┐
-                       │ Course Planning UI   │
-                       │       Next.js        │
-                       └──────────┬───────────┘
-                                  │
-                                  ▼
-                       ┌──────────────────────┐
-                       │   Next.js API Route  │
-                       │     /api/gemini      │
-                       └──────────┬───────────┘
-                                  │
-                                  ▼
-                       ┌──────────────────────┐
-                       │      Groq API        │
-                       │   Llama 3.1 8B       │
-                       └──────────┬───────────┘
-                                  │
-                                  ▼
-                       ┌──────────────────────┐
-                       │ Structured AI JSON   │
-                       │      Response        │
-                       └──────────┬───────────┘
-                                  │
-                                  ▼
-                       ┌──────────────────────┐
-                       │   Course Plan UI     │
-                       └──────────────────────┘
-```
+Assessments
 
----
+Practical work
 
-# 🧩 Course Planning Workflow
+Projects
 
-```text
-START
-  │
-  ▼
-Enter Course Topic
-  │
-  ▼
-Identify Target Audience
-  │
-  ▼
-Define Duration & Frequency
-  │
-  ▼
-Define Learning Goals
-  │
-  ▼
-Review Collected Information
-  │
-  ▼
-Generate Course Plan
-  │
-  ▼
-Refine / Improve
-  │
-  ▼
-Save Course
-  │
-  ▼
-DONE 🎉
-```
+The result isn't just a response from a chatbot.
 
----
+It's a structured course plan that can be saved, opened, refined, and managed.
 
-# 🛠️ Tech Stack
+💾 Persistent Course Storage
+Generated courses are automatically saved to Supabase PostgreSQL.
 
-### Frontend
+             Course Plan
+                  │
+                  ▼
+          POST /api/courses
+                  │
+                  ▼
+        ┌─────────────────┐
+        │ Next.js API      │
+        └────────┬────────┘
+                 │
+                 ▼
+        ┌─────────────────┐
+        │    Supabase      │
+        │   PostgreSQL     │
+        └────────┬────────┘
+                 │
+                 ▼
+             courses
+So refreshing the browser doesn't erase your courses.
 
-- ⚛️ React
-- ▲ Next.js
-- 🎨 CSS
-- JavaScript
+📊 Course Dashboard
+The dashboard acts as the central workspace for managing generated courses.
 
-### AI
+You can:
+➕ Create a new course
 
-- 🤖 Groq API
-- 🦙 Llama 3.1 8B Instant
-- Structured JSON responses
-- Conversational AI workflow
+📖 Open an existing course
 
-### Storage
+✏️ Refine a course
 
-- 💾 Browser Local Storage
+💾 Save course updates
 
-### Deployment
+🗑️ Delete courses
 
-- ▲ Vercel
+🔄 Refresh course data
 
----
+✏️ AI Course Refinement
+Course planning doesn't stop after the first generation.
 
-# 📁 Project Structure
+You can continue improving the course with natural language.
 
-```text
-course-planning-studio/
+For example:
+
+"Make this course more practical."
+
+"Add a final project."
+
+"Reduce the theoretical content."
+
+"Add more activities."
+
+"Make Module 2 suitable for beginners."
+The AI can use the existing course context to refine the plan.
+
+Existing Course
+       │
+       ▼
+Refinement Request
+       │
+       ▼
+     Gemini
+       │
+       ▼
+Updated Course
+       │
+       ▼
+   Supabase
+🏗️ Architecture
+┌───────────────────────────────────────────────┐
+│                  USER / MENTOR                │
+└──────────────────────┬────────────────────────┘
+                       │
+                       ▼
+┌───────────────────────────────────────────────┐
+│                 NEXT.JS FRONTEND              │
+│                                               │
+│  Conversational Intake                       │
+│  Course Dashboard                             │
+│  Course Viewer                                │
+│  Course Refinement                            │
+└───────────────┬───────────────────┬───────────┘
+                │                   │
+                ▼                   ▼
+       ┌────────────────┐   ┌─────────────────┐
+       │  Gemini API    │   │ Courses API     │
+       │                │   │                 │
+       │ AI reasoning   │   │ CRUD operations │
+       └───────┬────────┘   └────────┬────────┘
+               │                     │
+               │                     ▼
+               │            ┌─────────────────┐
+               │            │    SUPABASE     │
+               │            │   PostgreSQL    │
+               │            └─────────────────┘
+               │
+               ▼
+       ┌────────────────┐
+       │ Generated Plan │
+       └────────────────┘
+🛠️ Tech Stack
+Frontend
+Next.js 14
+
+React
+
+JavaScript
+
+Responsive UI
+
+AI
+Google Gemini API
+
+Conversational AI
+
+Structured course generation
+
+Course refinement
+
+Backend
+Next.js API Routes
+
+REST-style API endpoints
+
+Database
+Supabase
+
+PostgreSQL
+
+Deployment
+Vercel
+
+Version Control
+Git
+
+GitHub
+
+📁 Project Structure
+AI-Course-Planning-Assistant/
 │
 ├── app/
+│   │
 │   ├── api/
-│   │   └── claude/
+│   │   │
+│   │   ├── courses/
+│   │   │   ├── [id]/
+│   │   │   │   └── route.js
+│   │   │   │
+│   │   │   ├── route.js
+│   │   │   └── supabase.js
+│   │   │
+│   │   └── gemini/
 │   │       └── route.js
 │   │
-│   ├── globals.css
+│   ├── page.jsx
 │   ├── layout.js
-│   └── page.jsx
+│   └── globals.css
 │
 ├── lib/
 │   └── storage.js
 │
 ├── public/
 │
-├── .env.local.example
-├── .gitignore
+├── .env.local
 ├── package.json
 ├── package-lock.json
 └── README.md
-```
+🔌 API Architecture
+🤖 Gemini
+POST /api/gemini
+Used for:
 
----
+Conversational intake
 
-# ⚙️ Getting Started
+Requirement extraction
 
-## 1. Clone the repository
+Course generation
 
-```bash
-git clone https://github.com/YOUR_USERNAME/course-planning-studio.git
-```
+Course refinement
 
-Move into the project:
+📚 Courses
+Get all courses
+GET /api/courses
+Create course
+POST /api/courses
+Get course
+GET /api/courses/:id
+Update course
+PUT /api/courses/:id
+Delete course
+DELETE /api/courses/:id
+🗄️ Database Model
+The primary database table is:
 
-```bash
-cd course-planning-studio
-```
+courses
+with fields such as:
 
----
+┌─────────────────────────────┐
+│           courses           │
+├─────────────────────────────┤
+│ id                          │
+│ title                       │
+│ subject                     │
+│ course_metadata             │
+│ target_audience             │
+│ duration_and_frequency      │
+│ learning_goals              │
+│ modules                     │
+│ refine_log                  │
+│ status                      │
+│ created_at                  │
+│ updated_at                  │
+└─────────────────────────────┘
+🔐 Environment Configuration
+Create a .env.local file:
 
-## 2. Install dependencies
+GEMINI_API_KEY=your_gemini_api_key
 
-```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+⚠️ Never commit your .env.local file.
+
+Add this to .gitignore:
+
+.env*
+!.env.example
+🚀 Getting Started
+1️⃣ Clone the repository
+git clone https://github.com/Tushit007/AI-Course-Planning-Assistant.git
+cd AI-Course-Planning-Assistant
+2️⃣ Install dependencies
 npm install
-```
-
----
-
-## 3. Configure environment variables
-
+3️⃣ Configure environment variables
 Create:
 
-```text
 .env.local
-```
+and add:
 
-Add your Groq API key:
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-> ⚠️ **Never commit `.env.local` to GitHub.**
-
-The repository should only contain:
-
-```text
-.env.local.example
-```
-
----
-
-## 4. Start the development server
-
-```bash
+GEMINI_API_KEY=your_key
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+4️⃣ Start the development server
 npm run dev
-```
-
 Open:
 
-```text
 http://localhost:3000
-```
+🌐 Deployment
+The project is designed to be deployed on Vercel.
 
----
+Deployment flow
+GitHub
+   │
+   ▼
+Vercel
+   │
+   ▼
+Next.js Application
+   │
+   ├──────────► Gemini API
+   │
+   └──────────► Supabase
+Add the required environment variables in:
 
-# 🧪 Example
+Vercel
+ → Project
+ → Settings
+ → Environment Variables
+Then redeploy the application.
 
-### Mentor
+🧪 Project Testing Checklist
+AI Intake
+ Subject collection
 
-```text
-Data Structures
-```
+ Audience collection
 
-### AI
+ Duration collection
 
-```text
-Great choice! Who are the learners —
-their age group, skill level, and prior knowledge?
-```
+ Learning-goal collection
 
-### Mentor
+ Missing-field detection
 
-```text
-MCA students, beginner level, with basic programming knowledge.
-```
+ Learning-goal validation
 
-### AI
+ One-question-at-a-time conversation
 
-```text
-Great. How long will the course run,
-and how often will you meet?
-```
+Course Generation
+ Gemini integration
 
-The assistant continues until the required course information is collected.
+ Structured course generation
 
----
+ Module generation
 
-# 🌱 Example Course
+ Learning outcomes
 
-A conversation can eventually produce a course concept such as:
+ Course refinement
 
-```text
-📚 DATA STRUCTURES
+Database
+ Course creation
 
-Target Audience:
-MCA students with basic programming knowledge
+ Course retrieval
 
-Duration:
-12 weeks
+ Course update
 
-Frequency:
-2 sessions per week
+ Course deletion
 
-Learning Goals:
-• Understand fundamental data structures
-• Implement arrays and linked lists
-• Work with stacks and queues
-• Understand trees and graphs
-• Analyze algorithm complexity
-• Apply data structures to practical problems
-```
+ Persistent storage
 
----
+ Automatic save after generation
 
-# 🔐 Environment Variables
+Deployment
+ GitHub repository
 
-| Variable | Required | Description |
-|---|---:|---|
-| `GROQ_API_KEY` | ✅ | API key used for AI generation |
+ Vercel deployment
 
-For local development:
+ Environment configuration
 
-```env
-GROQ_API_KEY=your_key_here
-```
+ Supabase integration
 
-For Vercel:
+🎯 Use Cases
+👨‍🏫 Educators
+Create structured lesson plans quickly.
 
-```text
-Vercel Dashboard
-      ↓
-Project
-      ↓
-Settings
-      ↓
-Environment Variables
-      ↓
-GROQ_API_KEY
-```
+🎓 Mentors
+Turn a simple teaching idea into a complete curriculum.
 
----
+🏫 Educational Institutions
+Create standardized course structures.
 
-# 🚀 Deployment
+💼 Corporate Trainers
+Design skill-based training programs.
 
-Course Planning Studio can be deployed using **Vercel**.
+🧑‍💻 Curriculum Designers
+Use AI to accelerate the planning and refinement process.
 
-### Build
+🔮 Future Roadmap
+The project can evolve into a complete AI-powered curriculum platform.
 
-```bash
-npm run build
-```
+Phase 1 — Core
+ Conversational intake
 
-### Start
+ AI course generation
 
-```bash
-npm start
-```
+ Supabase persistence
 
-Or connect the GitHub repository directly to Vercel.
+ Course dashboard
 
-### Vercel Environment Variable
+Phase 2 — Intelligence
+ Personalized learning paths
 
-Add:
+ AI-generated assessments
 
-```text
-GROQ_API_KEY
-```
+ AI-generated quizzes
 
-to your Vercel project's environment variables.
+ Learning resource recommendations
 
----
+ Advanced course refinement
 
-# 🛡️ Security
+Phase 3 — Collaboration
+ User authentication
 
-Never expose your AI API key in frontend code.
+ Mentor profiles
 
-❌ Don't do this:
+ Team collaboration
 
-```javascript
-const key = "gsk_xxxxxxxxx";
-```
+ Course sharing
 
-❌ Don't use:
+ Role-based access
 
-```text
-NEXT_PUBLIC_GROQ_API_KEY
-```
+Phase 4 — Platform
+ Student progress tracking
 
-✅ Use:
+ Analytics dashboard
 
-```text
-GROQ_API_KEY
-```
+ Calendar integration
 
-and access it only from the server-side API route.
+ PDF export
 
----
+ LMS integration
 
-# 🔮 Future Roadmap
+ Multi-language support
 
-The current application provides the foundation for a larger AI-powered education platform.
+💡 Product Vision
+Make course creation as simple as having a conversation.
 
-### Phase 1 — Foundation
+The long-term vision is to evolve from an AI course generator into an intelligent curriculum design platform that helps educators move from:
 
-- [x] Conversational course intake
-- [x] AI-powered responses
-- [x] Structured course information
-- [x] Course plan storage
-- [x] Vercel-ready architecture
+IDEA
+  ↓
+PLANNING
+  ↓
+CURRICULUM
+  ↓
+CONTENT
+  ↓
+ASSESSMENT
+  ↓
+LEARNING
+with AI supporting every stage.
 
-### Phase 2 — Intelligent Course Builder
+🌟 Highlights
+Capability	Status
+🤖 Conversational AI	✅
+🧠 Gemini Integration	✅
+📚 Course Generation	✅
+🎯 Learning Goal Validation	✅
+💾 Supabase Persistence	✅
+📊 Course Dashboard	✅
+✏️ AI Refinement	✅
+🔌 REST API	✅
+☁️ Vercel Deployment	✅
+🔐 Environment Configuration	✅
+👨‍💻 Built With
+<p align="center">
+Next.js · React · Gemini · Supabase · PostgreSQL · Vercel · GitHub
 
-- [ ] Automatic module generation
-- [ ] Lesson-plan generation
-- [ ] Assignment generation
-- [ ] Quiz generation
-- [ ] Learning-resource recommendations
-- [ ] Course difficulty adjustment
+</p>
+📌 Project Status
+🟢 Active Development
 
-### Phase 3 — Mentor Workspace
+The core course planning workflow is functional, with AI-powered intake, course generation, persistence, dashboard management, and refinement.
 
-- [ ] User authentication
-- [ ] Cloud course storage
-- [ ] Course dashboard
-- [ ] Course duplication
-- [ ] Course version history
-- [ ] Export to PDF/DOCX
+⭐ Support
+If you find this project interesting, consider giving the repository a ⭐.
 
-### Phase 4 — AI Education Platform
+It helps support the project and future development.
 
-- [ ] Student-facing learning paths
-- [ ] Personalized learning
-- [ ] Progress tracking
-- [ ] AI tutor
-- [ ] Automated assessments
-- [ ] Analytics dashboard
+<p align="center">
+🎓 AI Course Planning Assistant
+From an idea → to a conversation → to a complete course.
 
----
-
-# 💡 Vision
-
-> **Course planning should feel like a conversation, not paperwork.**
-
-Course Planning Studio aims to make curriculum design faster, simpler, and more accessible by combining **educator expertise with AI-assisted planning**.
-
-The long-term vision is to create an intelligent workspace where mentors can go from:
-
-```text
-"I want to teach something..."
-```
-
-to:
-
-```text
-"Here is my complete, structured course."
-```
-
-with minimal friction.
-
----
-
-# 🤝 Contributing
-
-Contributions, ideas, and improvements are welcome.
-
-### Fork
-
-```bash
-git fork
-```
-
-### Create a branch
-
-```bash
-git checkout -b feature/your-feature
-```
-
-### Commit
-
-```bash
-git commit -m "Add your feature"
-```
-
-### Push
-
-```bash
-git push origin feature/your-feature
-```
-
-Then open a Pull Request.
-
----
-
-# 📜 License
-
-Add your preferred license here before making the repository public.
-
----
-
-<div align="center">
-
-### 🎓 Course Planning Studio
-
-**Plan better. Teach smarter. Build meaningful learning experiences.**
-
-Made with ❤️ + 🤖 AI
-
-</div>
+</p> ```
+This version is much more product/startup-style: it leads with the problem and experience, then shows the architecture, tech stack, APIs, setup, roadmap, and product vision rather than reading like a plain technical manual.
